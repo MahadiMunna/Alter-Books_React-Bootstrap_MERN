@@ -6,6 +6,7 @@ import { Link, useNavigate} from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const [error,setError] = useState('');
@@ -23,6 +24,7 @@ const Login = () => {
             const user = result.user;
             console.log(user)
             form.reset();
+            toast.success('Successfully logged in');
             navigate('/');
             setError('');
 
@@ -38,7 +40,7 @@ const Login = () => {
         providerLogin(googleProvider)
         .then(result =>{
             const user = result.user;
-            console.log(user);
+            toast.success('Successfully logged in');
             navigate('/');
         } )
         .catch(error=>{

@@ -7,12 +7,16 @@ import logo from '../../../utilities/logo/logo.png'
 import { Link } from 'react-router-dom';
 import './Header.css';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
+import { Image } from 'react-bootstrap';
+import toast from 'react-hot-toast';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
     const handleLogOut = () => {
         logOut()
-            .then(() => { })
+            .then(() => {
+                toast.success('Successfully Logged Out');
+             })
             .catch(() => { })
     }
     const id = 1;
@@ -20,7 +24,7 @@ const Header = () => {
         <Navbar bg="light" expand="lg">
             <Container>
             <img src={logo} style={{width:'50px'}} alt=""/>
-                <Navbar.Brand href="#home">Alter Books</Navbar.Brand>
+                <Navbar.Brand href="/">Alter Books</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -32,10 +36,19 @@ const Header = () => {
                             <NavDropdown.Item><Link to={`/categories/${id}`}>Action</Link></NavDropdown.Item>
                         </NavDropdown>
                         <Link className='navLink' to="/">eBooks</Link>
-                        <Link className='navLink' to="/">About</Link>
+                        <Link className='navLink' to="/about">About</Link>
                         {
                             user?.uid ?
+                            <div className='ms-5 mt-2'>
+                                <Image
+                                    style={{ height: '30px' }} 
+                                    roundedCircle 
+                                    src={user?.photoURL}
+                                    title={user?.displayName}
+                                    
+                                ></Image>
                                 <Link onClick={handleLogOut} className='ms-2 navLink' to='/login'>Log out</Link>
+                            </div>
                                 :
                                 <>
                                     <Link className='navLink' to='/login'>Login</Link>

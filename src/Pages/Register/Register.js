@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
@@ -39,7 +40,9 @@ const Register = () => {
             photoURL: img
         }
         updateUser(profile)
-            .then(() => { })
+            .then(() => {
+                toast.success('Successfully registered and logged in')
+             })
             .catch((error) => {
                 console.log(error)
             })
