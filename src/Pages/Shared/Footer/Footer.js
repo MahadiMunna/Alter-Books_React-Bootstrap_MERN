@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from '../../../utilities/logo/logo.png'
+import '../../../App.css';
 
 const Footer = () => {
     return (
-        <div style={{ height: '200px' }} className='mt-5' >
+        <div style={{ height: '200px' }} className='mt-5 App' >
             <footer className="footer items-center p-4">
                 <div className="items-center grid-flow-col">
-                    <img src={logo} style={{width:'50px'}} alt="..."/>
+                    <img src={logo} style={{width:'50px'}} alt=""/>
                     <p>Copyright © 2022 - All right reserved</p>
                 </div>
                 <div className="d-flex justify-content-center align-items-center">
