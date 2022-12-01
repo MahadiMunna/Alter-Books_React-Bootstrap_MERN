@@ -7,9 +7,11 @@ import nayeem from '../../utilities/about/nayeem.jpg';
 import zahin from '../../utilities/about/zahin.jpg';
 import asme from '../../utilities/about/asme.jpg';
 import talha from '../../utilities/about/talha.jpg';
+import useTitle from '../../Hooks/useTitle';
 
 
 const About = () => {
+    useTitle('About');
     return (
         <div className='mt-5'>
             <h2 className='text-center text-success'>About Us</h2>

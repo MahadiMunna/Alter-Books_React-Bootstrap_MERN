@@ -7,8 +7,10 @@ import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 import toast from 'react-hot-toast';
+import useTitle from '../../Hooks/useTitle';
 
 const Login = () => {
+    useTitle('Login')
     const [error,setError] = useState('');
     const navigate = useNavigate();
     const {signIn, providerLogin} = useContext(AuthContext)

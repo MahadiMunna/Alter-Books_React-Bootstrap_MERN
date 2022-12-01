@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -12,43 +12,62 @@ import toast from 'react-hot-toast';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [writers, setWriters] = useState([]);
+    const [types, setTypes] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/writers')
+            .then(res => res.json())
+            .then(data => {
+                setWriters(data)
+            })
+    }, [])
+    useEffect(() => {
+        fetch('http://localhost:5000/types')
+            .then(res => res.json())
+            .then(data => {
+                setTypes(data)
+            })
+    }, [])
     const handleLogOut = () => {
         logOut()
             .then(() => {
                 toast.success('Successfully Logged Out');
-             })
+            })
             .catch(() => { })
     }
-    const id = 1;
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-            <img src={logo} style={{width:'50px'}} alt=""/>
+                <img src={logo} style={{ width: '50px' }} alt="" />
                 <Navbar.Brand href="/">Alter Books</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link className='navLink' to="/">Home</Link>
-                        <NavDropdown title="Writer" id="basic-nav-dropdown">
-                            <NavDropdown.Item><Link to={`/writer/${id}`}>Action</Link></NavDropdown.Item>
+                        <NavDropdown title="Writers" id="basic-nav-dropdown">
+                            {
+                                writers.map(writer => <NavDropdown.Item href={`/writers/${writer._id}`}>{writer.writer}</NavDropdown.Item>)
+                            }
                         </NavDropdown>
                         <NavDropdown title="Books Categories" id="basic-nav-dropdown">
-                            <NavDropdown.Item><Link to={`/categories/${id}`}>Action</Link></NavDropdown.Item>
+                            {
+                                types.map(type => <NavDropdown.Item href={`/types/${type._id}`}>{type.type}</NavDropdown.Item>)
+                            }
                         </NavDropdown>
                         <Link className='navLink' to="/">eBooks</Link>
-                        <Link className='navLink' to="/about">About</Link>
+                        <Link className='navLink me-5' to="/about">About</Link>
                         {
                             user?.uid ?
-                            <div className='ms-5 mt-2'>
-                                <Image
-                                    style={{ height: '30px' }} 
-                                    roundedCircle 
-                                    src={user?.photoURL}
-                                    title={user?.displayName}
-                                    
-                                ></Image>
-                                <Link onClick={handleLogOut} className='ms-2 navLink' to='/login'>Log out</Link>
-                            </div>
+                                <div className='mt-2'>
+                                    <Image
+                                        style={{ height: '30px' }}
+                                        roundedCircle
+                                        src={user?.photoURL}
+                                        title={user?.displayName}
+
+                                    ></Image>
+                                    <Link onClick={handleLogOut} className='ms-2 navLink' to='/login'>Log out</Link>
+                                </div>
                                 :
                                 <>
                                     <Link className='navLink' to='/login'>Login</Link>
