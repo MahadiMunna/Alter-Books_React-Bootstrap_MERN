@@ -1,3 +1,12 @@
+# Alter books is a MERN stack project.
+
+This is a online book buying selling project. Here are different categories books are available from different writer. You can buy or borrow books from here.
+
+This project is created with React, Bootstrap, Node, express, vercel, firebase etc. Server side repository: https://github.com/MahadiMunna/Alter-Books_Server-Side_Backend
+
+# Live link: https://alter-books.web.app/
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
